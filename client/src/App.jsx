@@ -1,10 +1,10 @@
-import "./App.css";
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import Home from "./Home";
+import JobDetail from "./JobDetail";
 import Layout from "./Layout";
 import Login from "./Login";
-import Register from "./Register";
 import NoAuthRequired from "./NoAuthRequired";
+import Register from "./Register";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +29,14 @@ const router = createBrowserRouter([
           <NoAuthRequired>
             <Register />
           </NoAuthRequired>
+        ),
+      },
+      {
+        path: "/jobs/:jobId",
+        element: (
+          // <RequireAuth>
+          <JobDetail />
+          // </RequireAuth>
         ),
       },
     ],

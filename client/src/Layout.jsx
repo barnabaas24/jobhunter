@@ -4,7 +4,7 @@ import Menu from "./Menu";
 
 const Layout = () => {
   return (
-    <div>
+    <div className="">
       <Menu />
       <Outlet />
     </div>

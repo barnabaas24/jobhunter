@@ -5,23 +5,23 @@ import { NavLink } from "react-router-dom";
 const Menu = () => {
   const isAuthenticated = useSelector((state) => state.auth.user !== null);
 
-  return isAuthenticated ? (
+  return (
     <div className="navbar bg-base-100">
       <NavLink className="btn btn-ghost text-xl" to="/">
-        Home
+        JobHunter
       </NavLink>
-    </div>
-  ) : (
-    <div className="navbar bg-base-100">
-      <NavLink className="btn btn-ghost text-xl" to="/">
-        Főoldal
-      </NavLink>
-      <NavLink className="btn btn-ghost text-xl" to="/login">
-        Bejelentkezés
-      </NavLink>
-      <NavLink className="btn btn-ghost text-xl" to="/register">
-        Regisztráció
-      </NavLink>
+      {isAuthenticated ? (
+        <></>
+      ) : (
+        <>
+          <NavLink className="btn btn-ghost text-xl" to="/login">
+            Bejelentkezés
+          </NavLink>
+          <NavLink className="btn btn-ghost text-xl" to="/register">
+            Regisztráció
+          </NavLink>
+        </>
+      )}
     </div>
   );
 };
