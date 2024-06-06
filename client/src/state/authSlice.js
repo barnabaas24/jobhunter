@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { authApiSlice } from "./authApiSlice";
+import { jobHunterApi } from "./api/jobHunterApi";
 
 const initialState = {
   user: null,
@@ -20,9 +20,9 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addMatcher(authApiSlice.endpoints.login.matchFulfilled, (state, { payload }) => {
+    builder.addMatcher(jobHunterApi.endpoints.login.matchFulfilled, (state, { payload }) => {
       state.user = payload.user;
-      state.token = payload.token;
+      state.token = payload.accessToken;
     });
   },
 });
