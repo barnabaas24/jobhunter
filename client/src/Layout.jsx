@@ -4,9 +4,11 @@ import Menu from "./Menu";
 
 const Layout = () => {
   return (
-    <div className="">
+    <div className="container mx-auto p-4">
       <Menu />
-      <Outlet />
+      <div className="w-3/4 pt-8 mx-auto">
+        <Outlet />
+      </div>
     </div>
   );
 };

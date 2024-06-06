@@ -13,7 +13,7 @@ const Home = () => {
   }
 
   return (
-    <div>
+    <div className="container mx-auto p-4">
       {data.map((d) => {
         <div>{d.name}</div>;
       })}
