@@ -1,20 +1,15 @@
 import React from "react";
-import { useGetAllJobsQuery } from "./state/jobApiSlice";
+import { useSelector } from "react-redux";
+import { useGetAllJobsQuery } from "./state/api/jobApi";
 
 const Home = () => {
-  const { data, isLoading, isError } = useGetAllJobsQuery();
-
-  if (isLoading) {
-    return <>Loading...</>;
-  }
-
-  if (isError) {
-    return <>Error</>;
-  }
+  const { data: jobs } = useGetAllJobsQuery();
+  const authState = useSelector((state) => state.auth);
+  console.log(authState);
 
   return (
     <div className="container mx-auto p-4">
-      {data.map((d) => {
+      {jobs?.map((d) => {
         <div>{d.name}</div>;
       })}
     </div>

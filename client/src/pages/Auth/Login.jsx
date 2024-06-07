@@ -1,5 +1,5 @@
 import React from "react";
-import { useLoginMutation } from "./state/authApiSlice";
+import { useLoginMutation } from "../../state/api/authApi";
 
 const Login = () => {
   const [login] = useLoginMutation();
