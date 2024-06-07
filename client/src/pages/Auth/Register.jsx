@@ -38,8 +38,10 @@ const Register = () => {
     }
   }
 
+  //TODO: render error component
+
   return (
-    <form onSubmit={handleFormSubmit} className="w-1/3 mx-auto">
+    <form onSubmit={handleFormSubmit} className="w-1/5 mx-auto">
       <div className="flex flex-col gap-6">
         <label className="input input-bordered flex items-center gap-2">
           Vezetéknév
