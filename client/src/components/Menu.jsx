@@ -9,7 +9,7 @@ const Menu = () => {
   const isCompany = userRole === "company";
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-primary">
       <NavLink className="btn btn-ghost text-xl" to="/">
         Álláshírdetések
       </NavLink>
