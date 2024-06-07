@@ -1,10 +1,17 @@
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import Home from "./Home";
-import JobDetail from "./JobDetail";
-import Layout from "./Layout";
-import Login from "./Login";
-import NoAuthRequired from "./NoAuthRequired";
-import Register from "./Register";
+import JobDetail from "./pages/Jobseeker/JobDetail";
+import Layout from "./components/Layout";
+import Login from "./pages/Auth/Login";
+import NoAuth from "./components/NoAuth";
+import Register from "./pages/Auth/Register";
+import CreateJob from "./pages/Company/CreateJob";
+import JobSeekerProfile from "./pages/Jobseeker/JobSeekerProfile";
+import JobSeekerRoleRequired from "./pages/Jobseeker/JobSeekerRoleRequired";
+import CompanyRoleRequired from "./pages/Company/CompanyRoleRequired";
+import RequireAuth from "./components/Auth";
+import CompanyProfile from "./pages/Company/CompanyProfile";
+import Logout from "./pages/Auth/Logout";
 
 const router = createBrowserRouter([
   {
@@ -18,25 +25,65 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: (
-          <NoAuthRequired>
+          <NoAuth>
             <Login />
-          </NoAuthRequired>
+          </NoAuth>
         ),
       },
       {
         path: "/register",
         element: (
-          <NoAuthRequired>
+          <NoAuth>
             <Register />
-          </NoAuthRequired>
+          </NoAuth>
+        ),
+      },
+      {
+        path: "/logout",
+        element: (
+          <RequireAuth>
+            <Logout />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <JobSeekerRoleRequired>
+            <RequireAuth>
+              <JobSeekerProfile />
+            </RequireAuth>
+          </JobSeekerRoleRequired>
         ),
       },
       {
         path: "/jobs/:jobId",
         element: (
-          // <RequireAuth>
-          <JobDetail />
-          // </RequireAuth>
+          <JobSeekerRoleRequired>
+            <RequireAuth>
+              <JobDetail />
+            </RequireAuth>
+          </JobSeekerRoleRequired>
+        ),
+      },
+      {
+        path: "/companyprofile",
+        element: (
+          <CompanyRoleRequired>
+            <RequireAuth>
+              <CompanyProfile />
+            </RequireAuth>
+          </CompanyRoleRequired>
+        ),
+      },
+      {
+        path: "/createjob",
+        element: (
+          <CompanyRoleRequired>
+            <RequireAuth>
+              <CreateJob />
+            </RequireAuth>
+          </CompanyRoleRequired>
         ),
       },
     ],
