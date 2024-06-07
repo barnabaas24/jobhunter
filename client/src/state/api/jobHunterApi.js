@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const baseQuery = fetchBaseQuery({
+const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:3030",
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.token;
@@ -15,8 +15,7 @@ export const baseQuery = fetchBaseQuery({
 
 export const jobHunterApi = createApi({
   reducerPath: "jobHunterApi",
-  tagTypes: ["Jobs"],
+  tagTypes: ["Jobs", "Experiences"],
   baseQuery,
   endpoints: () => ({}),
 });
-
