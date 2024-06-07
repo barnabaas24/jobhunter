@@ -25,6 +25,10 @@ export const authSlice = createSlice({
       state.token = payload.accessToken;
     });
   },
+  selectors: {
+    selectUserRole: (state) => state.user?.role ?? undefined,
+  },
 });
 
 export const { login, logout } = authSlice.actions;
+export const { selectUserRole } = authSlice.selectors;
