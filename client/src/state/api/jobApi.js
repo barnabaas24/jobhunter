@@ -7,6 +7,10 @@ const jobApi = jobHunterApi.injectEndpoints({
       transformResponse: (result) => result.data,
       providesTags: ["Jobs"],
     }),
+    getJobById: build.query({
+      query: (id) => `/jobs/${id}`,
+      providesTags: ["Jobs"],
+    }),
     createNewJob: build.mutation({
       query: (body) => ({
         url: "/jobs",
@@ -19,4 +23,4 @@ const jobApi = jobHunterApi.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetAllJobsQuery, useCreateNewJobMutation } = jobApi;
+export const { useGetAllJobsQuery, useCreateNewJobMutation, useGetJobByIdQuery } = jobApi;
