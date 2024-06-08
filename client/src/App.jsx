@@ -79,17 +79,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/jobs/:jobId/applicants",
-        element: (
-          <CompanyRoleRequired>
-            <RequireAuth>
-              <JobApplicants />
-            </RequireAuth>
-          </CompanyRoleRequired>
-        ),
-      },
-      {
-        path: "/companyprofile",
+        path: "/companyprofile/:jobId?",
         element: (
           <CompanyRoleRequired>
             <RequireAuth>
