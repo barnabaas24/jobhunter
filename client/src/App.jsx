@@ -12,6 +12,8 @@ import CompanyRoleRequired from "./pages/Company/CompanyRoleRequired";
 import RequireAuth from "./components/Auth";
 import CompanyProfile from "./pages/Company/CompanyProfile";
 import Logout from "./pages/Auth/Logout";
+import EditJob from "./pages/Company/EditJob";
+import JobApplicants from "./pages/Company/JobApplicants";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +66,26 @@ const router = createBrowserRouter([
               <JobDetail />
             </RequireAuth>
           </JobSeekerRoleRequired>
+        ),
+      },
+      {
+        path: "/jobs/:jobId/edit",
+        element: (
+          <CompanyRoleRequired>
+            <RequireAuth>
+              <EditJob />
+            </RequireAuth>
+          </CompanyRoleRequired>
+        ),
+      },
+      {
+        path: "/jobs/:jobId/applicants",
+        element: (
+          <CompanyRoleRequired>
+            <RequireAuth>
+              <JobApplicants />
+            </RequireAuth>
+          </CompanyRoleRequired>
         ),
       },
       {
