@@ -31,7 +31,9 @@ const Home = () => {
                 <tr
                   key={job.id}
                   onClick={userRole === "jobseeker" ? () => handleJobClick(job.id) : null}
-                  className={`flex justify-between ${userRole === "jobseeker" ? "cursor-pointer" : ""}`}
+                  className={`flex justify-between ${
+                    userRole === "jobseeker" ? "cursor-pointer" : ""
+                  } hover:bg-base-200`}
                 >
                   <td>
                     <div className="flex flex-col justify-start">
@@ -41,7 +43,15 @@ const Home = () => {
                   </td>
                   <td>
                     <div className="flex flex-col justify-start">
-                      <span className="font-bold">{job.salaryFrom + "-" + job.salaryTo + " Ft"}</span>
+                      <span className="font-bold">
+                        {new Intl.NumberFormat("hu-HU").format(job.salaryFrom) +
+                          " - " +
+                          new Intl.NumberFormat("hu-HU", {
+                            style: "currency",
+                            currency: "HUF",
+                            maximumFractionDigits: 0,
+                          }).format(job.salaryTo)}
+                      </span>
                       <span>{job.type}</span>
                     </div>
                   </td>

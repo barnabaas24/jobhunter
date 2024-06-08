@@ -7,25 +7,14 @@ import { useGetJobApplicantsQuery } from "../../state/api/applicantsApi";
 const JobApplicants = () => {
   const params = useParams();
   const jobId = params.jobId;
-  const { data: job } = useGetJobByIdQuery(jobId);
-  const { data: applicants } = useGetJobApplicantsQuery(jobId);
-  console.log(applicants);
+  const { data: job } = useGetJobByIdQuery(jobId, { skip: !jobId });
+  const { data: applicants } = useGetJobApplicantsQuery(jobId, { skip: !jobId });
 
   return (
-    <div>
-      <SecondaryHeader>
-        <div>
-          <div className="flex flex-col items-center">
-            <p>{job?.position}</p>
-            <p className="text-sm font-normal">{job?.company}</p>
-          </div>
-          <div className="absolute right-4 flex flex-col text-base text-center">
-            <div>{job?.salaryFrom + "-" + job?.salaryTo + " Ft"}</div>
-            <div className="font-normal">{job?.type}</div>
-          </div>
-        </div>
-      </SecondaryHeader>
-      <div className="w-1/2 mx-auto mt-12 p-6 shadow-lg rounded-lg">
+    <div className="mx-auto p-6">
+      {applicants?.length === 0 ? (
+        <h1 className="font-bold text-xl">Még nincsenek jelentkezők erre a pozícióra</h1>
+      ) : (
         <div className="flex flex-col gap-6 pt-6 ">
           <div className="flex flex-col gap-1">
             <h1 className="font-bold text-xl">Jelentkezők</h1>
@@ -40,7 +29,7 @@ const JobApplicants = () => {
             </thead>
             <tbody>
               {applicants?.map((applicant) => (
-                <tr>
+                <tr key={applicant.user.id}>
                   <td>{applicant.user.fullname}</td>
                   <td>{applicant.user.email}</td>
                 </tr>
@@ -48,7 +37,7 @@ const JobApplicants = () => {
             </tbody>
           </table>
         </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -32,7 +32,15 @@ const JobDetail = () => {
           <div>
             <div>{job?.company}</div>
             <div className="absolute right-4 flex flex-col text-base text-center">
-              <div>{job?.salaryFrom + "-" + job?.salaryTo + " Ft"}</div>
+              <div>
+                {new Intl.NumberFormat("hu-HU").format(job?.salaryFrom) +
+                  " - " +
+                  new Intl.NumberFormat("hu-HU", {
+                    style: "currency",
+                    currency: "HUF",
+                    maximumFractionDigits: 0,
+                  }).format(job?.salaryTo)}
+              </div>
               <div className="font-normal">{job?.type}</div>
             </div>
           </div>
@@ -60,31 +68,40 @@ const JobDetail = () => {
               <tbody>
                 <tr>
                   <td>Név</td>
-                  <td>{job?.company}</td>
+                  <td className="font-semibold">{job?.company}</td>
                 </tr>
                 <tr>
                   <td>Pozíció</td>
-                  <td>{job?.position}</td>
+                  <td className="font-semibold">{job?.position}</td>
                 </tr>
                 <tr>
                   <td>Leírás</td>
-                  <td>{job?.description}</td>
+                  <td className="font-semibold">{job?.description}</td>
                 </tr>
                 <tr>
                   <td>Fizetési sáv</td>
-                  <td>{"Bruttó " + job?.salaryFrom + "-" + job?.salaryTo + " Ft"}</td>
+                  <td className="font-semibold">
+                    {"Bruttó " +
+                      new Intl.NumberFormat("hu-HU").format(job?.salaryFrom) +
+                      " - " +
+                      new Intl.NumberFormat("hu-HU", {
+                        style: "currency",
+                        currency: "HUF",
+                        maximumFractionDigits: 0,
+                      }).format(job?.salaryTo)}
+                  </td>
                 </tr>
                 <tr>
                   <td>Foglalkoztatás típusa</td>
-                  <td>{job?.type}</td>
+                  <td className="font-semibold">{job?.type}</td>
                 </tr>
                 <tr>
                   <td>Település</td>
-                  <td>{job?.city}</td>
+                  <td className="font-semibold">{job?.city}</td>
                 </tr>
                 <tr>
                   <td>Home office</td>
-                  <td>{job?.homeOffice ? "Van" : "Nincs"}</td>
+                  <td className="font-semibold">{job?.homeOffice ? "Van" : "Nincs"}</td>
                 </tr>
               </tbody>
             </table>
