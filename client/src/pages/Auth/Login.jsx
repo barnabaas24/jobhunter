@@ -23,7 +23,7 @@ const Login = () => {
   //TODO: render error component
 
   return (
-    <form onSubmit={handleFormSubmit} className="w-1/6 mx-auto">
+    <form onSubmit={handleFormSubmit} className="w-1/6 mx-auto mt-10">
       <div className="flex flex-col gap-6">
         <label className="input input-bordered flex items-center gap-2">
           Email

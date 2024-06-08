@@ -10,7 +10,7 @@ const JobSeekerProfile = () => {
   return (
     <div>
       <SecondaryHeader>Profilom</SecondaryHeader>
-      <div className="w-1/2 mx-auto mt-12 p-6 shadow-lg">
+      <div className="w-1/2 mx-auto mt-12 p-6 shadow-lg rounded-lg">
         <div className="flex flex-col gap-6 pt-12 ">
           <div className="flex justify-between">
             <div className="flex flex-col">
