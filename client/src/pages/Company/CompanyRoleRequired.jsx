@@ -1,6 +1,7 @@
 import React from "react";
 import { selectUserRole } from "../../state/authSlice";
 import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 const CompanyRoleRequired = ({ children }) => {
   const userRole = useSelector(selectUserRole);
@@ -9,7 +10,7 @@ const CompanyRoleRequired = ({ children }) => {
     return children;
   }
 
-  return <Navigate to={"/"} />;
+  return <Navigate to="/login" />;
 };
 
 export default CompanyRoleRequired;
