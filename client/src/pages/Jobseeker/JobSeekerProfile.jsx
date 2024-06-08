@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useGetExperiencesQuery } from "../../state/api/experienceApi";
 import SecondaryHeader from "../../components/SecondaryHeader";
@@ -6,6 +6,7 @@ import SecondaryHeader from "../../components/SecondaryHeader";
 const JobSeekerProfile = () => {
   const user = useSelector((state) => state.auth.user);
   const { data: experiences } = useGetExperiencesQuery();
+  const [editEnabled, setEditEnabled] = useState(false);
 
   return (
     <div>
@@ -17,32 +18,39 @@ const JobSeekerProfile = () => {
               <h1 className="font-bold">Személyes adatok</h1>
               <p>Adatait és tapasztalataid egy helyen.</p>
             </div>
-            <button className="btn btn-sm">Tapasztalatok szerkesztése</button>
+            <button onClick={() => setEditEnabled(true)} className="btn btn-sm">
+              Tapasztalatok szerkesztése
+            </button>
           </div>
 
-          <div className="flex gap-48">
-            <div className="flex flex-col gap-6">
-              <div>Név</div>
-              <div>E-mail</div>
-              <div>Státusz</div>
-              <div className="font-bold">Previous experiences</div>
+          <table className="table">
+            <tbody>
+              <tr>
+                <td>Név</td>
+                <td>{user?.fullname}</td>
+              </tr>
+              <tr>
+                <td>E-mail</td>
+                <td>{user?.email}</td>
+              </tr>
+              <tr>
+                <td>Státusz</td>
+                <td>{user?.role}</td>
+              </tr>
+              <tr>
+                <td colSpan={2} className="font-bold">
+                  Previous experiences
+                </td>
+              </tr>
+
               {experiences?.map((experience) => (
-                <div key={experience.id}>{experience.company}</div>
+                <tr key={experience.id}>
+                  <td>{experience.company}</td>
+                  <td>{experience.interval + " " + experience.title}</td>
+                </tr>
               ))}
-            </div>
-            <div className="flex flex-col gap-6 justify-start">
-              <div className="font-bold">{user.fullname}</div>
-              <div>{user.email}</div>
-              <div className="text-left font-bold">Munkakereső</div>
-              <div></div>
-              <div></div>
-              {experiences?.map((experience) => (
-                <div key={experience.id} className="font-bold">
-                  {experience.interval + " " + experience.title}{" "}
-                </div>
-              ))}
-            </div>
-          </div>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
