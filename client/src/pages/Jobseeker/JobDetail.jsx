@@ -33,7 +33,7 @@ const JobDetail = () => {
             <div>{job?.company}</div>
             <div className="absolute right-4 flex flex-col text-base text-center">
               <div>{job?.salaryFrom + "-" + job?.salaryTo + " Ft"}</div>
-              <div>{job?.type}</div>
+              <div className="font-normal">{job?.type}</div>
             </div>
           </div>
         </SecondaryHeader>

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import SecondaryHeader from "../../components/SecondaryHeader";
 import { useCreateNewJobMutation } from "../../state/api/jobApi";
+import { useNavigate } from "react-router-dom";
 
 const CreateJob = () => {
   const [jobType, setJobType] = useState("");
-
   const [createNewJob] = useCreateNewJobMutation();
+  const navigate = useNavigate();
 
   async function handleFormSubmit(e) {
     e.preventDefault();
@@ -23,6 +24,8 @@ const CreateJob = () => {
 
     try {
       await createNewJob(formData);
+      //TODO: only navigate if there is no error
+      navigate("/companyprofile");
     } catch (error) {
       console.log(error);
     }
