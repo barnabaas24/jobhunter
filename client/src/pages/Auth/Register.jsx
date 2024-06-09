@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useLoginMutation, useRegisterMutation } from "../../state/api/authApi";
 import { useAddExperiencesMutation } from "../../state/api/experienceApi";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const [register] = useRegisterMutation();
   const [login] = useLoginMutation();
   const [addExperiences] = useAddExperiencesMutation();
-
   const [userType, setUserType] = useState("");
 
   async function handleFormSubmit(e) {
@@ -19,11 +20,8 @@ const Register = () => {
     };
 
     try {
-      await register(formData);
-      console.log("succesfull register");
+      await register(formData).unwrap();
       await login({ email: formData.email, password: e.target.password.value });
-      console.log("succesfull login");
-
       if (userType === "jobseeker") {
         const experienceData = e.target.experiences.value.trim().split("\n");
         const experiences = [];
@@ -34,34 +32,31 @@ const Register = () => {
         await addExperiences(experiences);
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error.data.message);
     }
   }
-
-  //TODO: render error component
 
   return (
     <form onSubmit={handleFormSubmit} className="w-1/5 mx-auto mt-10">
       <div className="flex flex-col gap-6">
         <label className="input input-bordered flex items-center gap-2">
           Vezetéknév
-          <input type="text" name="lastname" className="grow" placeholder="" required />
+          <input type="text" name="lastname" className="grow" />
         </label>
         <label className="input input-bordered flex items-center gap-2">
           Keresztnév
-          <input type="text" name="firstname" className="grow" placeholder="" required />
+          <input type="text" name="firstname" className="grow" />
         </label>
 
         <label className="input input-bordered flex items-center gap-2">
           Email
-          <input type="text" name="email" className="grow" placeholder="" required />
+          <input type="text" name="email" className="grow" />
         </label>
         <select
           name="role"
           value={userType}
           onChange={(e) => setUserType(e.target.value)}
           className="select select-bordered w-full max-w-xs"
-          required
         >
           <option value="" disabled>
             Fiók típus
@@ -72,7 +67,7 @@ const Register = () => {
 
         <label className="input input-bordered flex items-center gap-2">
           Password
-          <input type="password" name="password" className="grow" placeholder="" required />
+          <input type="password" name="password" className="grow" />
         </label>
 
         {userType === "jobseeker" && (
@@ -89,6 +84,19 @@ const Register = () => {
           Register
         </button>
       </div>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        transition={Bounce}
+      />
     </form>
   );
 };
