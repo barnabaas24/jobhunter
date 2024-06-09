@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import SecondaryHeader from "../../components/SecondaryHeader";
 import { useCreateNewJobMutation } from "../../state/api/jobApi";
 import { useNavigate } from "react-router-dom";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CreateJob = () => {
   const [jobType, setJobType] = useState("");
@@ -23,11 +25,10 @@ const CreateJob = () => {
     console.log(formData);
 
     try {
-      await createNewJob(formData);
-      //TODO: only navigate if there is no error
+      await createNewJob(formData).unwrap();
       navigate("/companyprofile");
     } catch (error) {
-      console.log(error);
+      toast.error(error.data.message);
     }
   }
 
@@ -35,7 +36,7 @@ const CreateJob = () => {
 
   return (
     <div>
-      <SecondaryHeader>Új hírdetés</SecondaryHeader>
+      <SecondaryHeader>Új hírdetés létrehozása</SecondaryHeader>
 
       <div className="w-1/2 p-6 rounded-lg mx-auto mt-12 shadow-lg">
         <form onSubmit={handleFormSubmit} className=" w-1/2 mx-auto flex flex-col gap-6">
@@ -98,6 +99,19 @@ const CreateJob = () => {
           </div>
         </form>
       </div>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        transition={Bounce}
+      />
     </div>
   );
 };
