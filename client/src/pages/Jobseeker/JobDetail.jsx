@@ -52,7 +52,7 @@ const JobDetail = () => {
                     case "full-time":
                       return "Teljes munkaidő";
                     case "part-time":
-                      return "Részmunkaidő.";
+                      return "Részmunkaidő";
                     case "internship":
                       return "Gyakornoki";
                     default:

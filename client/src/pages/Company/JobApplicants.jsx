@@ -1,13 +1,10 @@
 import React from "react";
-import { useGetJobByIdQuery } from "../../state/api/jobApi";
 import { useParams } from "react-router-dom";
-import SecondaryHeader from "../../components/SecondaryHeader";
 import { useGetJobApplicantsQuery } from "../../state/api/applicantsApi";
 
 const JobApplicants = () => {
   const params = useParams();
   const jobId = params.jobId;
-  const { data: job } = useGetJobByIdQuery(jobId, { skip: !jobId });
   const { data: applicants } = useGetJobApplicantsQuery(jobId, { skip: !jobId });
 
   return (
