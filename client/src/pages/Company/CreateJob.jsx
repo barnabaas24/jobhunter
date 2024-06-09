@@ -4,11 +4,14 @@ import { useCreateNewJobMutation } from "../../state/api/jobApi";
 import { useNavigate } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import RangeSlider from "react-range-slider-input";
+import "react-range-slider-input/dist/style.css";
 
 const CreateJob = () => {
   const [jobType, setJobType] = useState("");
   const [createNewJob] = useCreateNewJobMutation();
   const navigate = useNavigate();
+  const [rangeValue, setRangeValue] = useState([50000, 200000]);
 
   async function handleFormSubmit(e) {
     e.preventDefault();
@@ -16,13 +19,12 @@ const CreateJob = () => {
       company: e.target.company.value,
       position: e.target.position.value,
       description: e.target.description.value,
-      salaryFrom: Number.parseInt(e.target.from.value),
-      salaryTo: Number.parseInt(e.target.to.value),
+      salaryFrom: rangeValue[0],
+      salaryTo: rangeValue[1],
       type: jobType,
       city: e.target.city.value,
       homeOffice: e.target.homeOffice.checked,
     };
-    console.log(formData);
 
     try {
       await createNewJob(formData).unwrap();
@@ -31,8 +33,6 @@ const CreateJob = () => {
       toast.error(error.data.message);
     }
   }
-
-  //TODO: render error component
 
   return (
     <div>
@@ -54,23 +54,26 @@ const CreateJob = () => {
             className="textarea textarea-bordered"
             placeholder="Leírás a munkáról"
           ></textarea>
-          <div className="flex flex-col gap-3">
-            <div>Fizetési sáv</div>
-            <div className="flex justify-between">
-              <div className="w-1/3 flex">
-                <label className="input input-bordered flex items-center">
-                  <input type="number" name="from" className="w-[100%]" />
-                  <label>tól</label>
-                </label>
-              </div>
-              <div className="w-1/3 flex">
-                <label className="input input-bordered flex items-center">
-                  <input type="number" name="to" className="w-[100%]" />
-                  <label>ig</label>
-                </label>
-              </div>
+          <div>Fizetési sáv</div>
+          <RangeSlider min={0} max={1000000} step={1000} value={rangeValue} onInput={setRangeValue} />
+          <div className="flex justify-between">
+            <div>
+              {new Intl.NumberFormat("hu-HU", {
+                style: "currency",
+                currency: "HUF",
+                maximumFractionDigits: 0,
+              }).format(rangeValue[0])}
+            </div>
+            <div>
+              {" "}
+              {new Intl.NumberFormat("hu-HU", {
+                style: "currency",
+                currency: "HUF",
+                maximumFractionDigits: 0,
+              }).format(rangeValue[1])}
             </div>
           </div>
+
           <select
             name="jobtype"
             value={jobType}

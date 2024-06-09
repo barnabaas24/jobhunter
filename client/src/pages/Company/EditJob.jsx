@@ -1,17 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEditJobMutation, useGetJobByIdQuery } from "../../state/api/jobApi";
 import SecondaryHeader from "../../components/SecondaryHeader";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import RangeSlider from "react-range-slider-input";
+import "react-range-slider-input/dist/style.css";
 
 const EditJob = () => {
   const params = useParams();
   const jobId = params.jobId;
   const { data: job } = useGetJobByIdQuery(jobId);
   const [editJob] = useEditJobMutation();
-  const navigate = useNavigate();
-  console.log("JobId: " + jobId);
+  const [rangeValue, setRangeValue] = useState([0, 0]);
+
+  useEffect(() => {
+    if (job) {
+      setRangeValue([job.salaryFrom, job.salaryTo]);
+    }
+  }, [job]);
 
   async function handleFormSubmit(e) {
     e.preventDefault();
@@ -19,18 +26,16 @@ const EditJob = () => {
       company: e.target.company.value,
       position: e.target.position.value,
       description: e.target.description.value,
-      salaryFrom: Number.parseInt(e.target.from.value),
-      salaryTo: Number.parseInt(e.target.to.value),
+      salaryFrom: rangeValue[0],
+      salaryTo: rangeValue[1],
       type: e.target.jobtype.value,
       city: e.target.city.value,
       homeOffice: e.target.homeOffice.checked,
     };
 
-
     try {
-      await editJob({ id: Number.parseInt(jobId), body: formData });
-      toast("Hírdetés módosítva!");
-      //TODO: only navigate if there is no error
+      await editJob({ id: Number.parseInt(jobId), body: formData }).unwrap();
+      toast.success("Hírdetés módosítva!");
     } catch (error) {
       console.log(error);
     }
@@ -58,21 +63,22 @@ const EditJob = () => {
               placeholder="Leírás a munkáról"
               defaultValue={job?.description}
             ></textarea>
-            <div className="flex flex-col gap-3">
-              <div>Fizetési sáv</div>
-              <div className="flex justify-between">
-                <div className="w-1/3 flex">
-                  <label className="input input-bordered flex items-center">
-                    <input type="number" name="from" defaultValue={job?.salaryFrom} className="w-[100%]" />
-                    <label>tól</label>
-                  </label>
-                </div>
-                <div className="w-1/3 flex">
-                  <label className="input input-bordered flex items-center">
-                    <input type="number" name="to" defaultValue={job?.salaryTo} className="w-[100%]" />
-                    <label>ig</label>
-                  </label>
-                </div>
+            <div>Fizetési sáv</div>
+            <RangeSlider min={0} max={1000000} step={1000} value={rangeValue} onInput={setRangeValue} />
+            <div className="flex justify-between">
+              <div>
+                {new Intl.NumberFormat("hu-HU", {
+                  style: "currency",
+                  currency: "HUF",
+                  maximumFractionDigits: 0,
+                }).format(rangeValue[0])}
+              </div>
+              <div>
+                {new Intl.NumberFormat("hu-HU", {
+                  style: "currency",
+                  currency: "HUF",
+                  maximumFractionDigits: 0,
+                }).format(rangeValue[1])}
               </div>
             </div>
             <select
