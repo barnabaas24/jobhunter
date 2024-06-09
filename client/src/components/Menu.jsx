@@ -1,12 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { selectUserRole } from "../state/authSlice";
+import { logout, selectUserRole } from "../state/authSlice";
 
 const Menu = () => {
   const isAuthenticated = useSelector((state) => state.auth.user !== null);
   const userRole = useSelector(selectUserRole);
   const isCompany = userRole === "company";
+  const dispatch = useDispatch();
 
   return (
     <div className="navbar bg-primary">
@@ -31,9 +32,9 @@ const Menu = () => {
               </NavLink>
             </>
           )}
-          <NavLink className="btn btn-ghost text-xl" to="/logout">
+          <button onClick={() => dispatch(logout())} className="btn btn-ghost text-xl">
             Kijelentkezés
-          </NavLink>
+          </button>
         </>
       ) : (
         <>

@@ -11,9 +11,7 @@ import JobSeekerRoleRequired from "./pages/Jobseeker/JobSeekerRoleRequired";
 import CompanyRoleRequired from "./pages/Company/CompanyRoleRequired";
 import RequireAuth from "./components/Auth";
 import CompanyProfile from "./pages/Company/CompanyProfile";
-import Logout from "./pages/Auth/Logout";
 import EditJob from "./pages/Company/EditJob";
-import JobApplicants from "./pages/Company/JobApplicants";
 
 const router = createBrowserRouter([
   {
@@ -38,14 +36,6 @@ const router = createBrowserRouter([
           <NoAuth>
             <Register />
           </NoAuth>
-        ),
-      },
-      {
-        path: "/logout",
-        element: (
-          <RequireAuth>
-            <Logout />
-          </RequireAuth>
         ),
       },
       {
