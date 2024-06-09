@@ -30,7 +30,12 @@ const JobDetail = () => {
       <div>
         <SecondaryHeader>
           <div>
-            <div>{job?.company}</div>
+            <div className="flex gap-8">
+              <div>{job?.company}</div>
+              <div className="badge badge-info text-base my-auto">
+                {job?.homeOffice ? "Home Office" : "Office"}
+              </div>
+            </div>
             <div className="absolute right-4 flex flex-col text-base text-center">
               <div>
                 {new Intl.NumberFormat("hu-HU").format(job?.salaryFrom) +
@@ -41,7 +46,20 @@ const JobDetail = () => {
                     maximumFractionDigits: 0,
                   }).format(job?.salaryTo)}
               </div>
-              <div className="font-normal">{job?.type}</div>
+              <div className="font-normal">
+                {(() => {
+                  switch (job?.type) {
+                    case "full-time":
+                      return "Teljes munkaidő";
+                    case "part-time":
+                      return "Részmunkaidő.";
+                    case "internship":
+                      return "Gyakornoki";
+                    default:
+                      return "";
+                  }
+                })()}
+              </div>
             </div>
           </div>
         </SecondaryHeader>
@@ -54,7 +72,9 @@ const JobDetail = () => {
               </div>
 
               {applicants !== null && alreadyApplied ? (
-                <div className="bg-green-500 my-auto p-1 rounded-lg font-semibold">Már jelentkeztél.</div>
+                <div className="badge badge-success badge-lg my-auto p-2 font-semibold">
+                  Már jelentkeztél.
+                </div>
               ) : (
                 <button
                   onClick={handleJobApplication}

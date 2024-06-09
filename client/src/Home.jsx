@@ -52,7 +52,7 @@ const Home = () => {
                             maximumFractionDigits: 0,
                           }).format(job.salaryTo)}
                       </span>
-                      <span>{job.type}</span>
+                      <span className="text-center">{job.type}</span>
                     </div>
                   </td>
                 </tr>
