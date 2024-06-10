@@ -29,9 +29,30 @@ const CompanyProfile = () => {
                   <div>
                     <div className="text-2xl font-bold">{job.position}</div>
                     <div className="flex gap-4">
-                      <p>{job.type}</p>
+                      <p>
+                        {(() => {
+                          switch (job.type) {
+                            case "full-time":
+                              return "Teljes munkaidős";
+                            case "part-time":
+                              return "Részmunkaidős";
+                            case "internship":
+                              return "Gyakornoki";
+                            default:
+                              return "";
+                          }
+                        })()}
+                      </p>
                       <p>{job.homeOffice ? "Remote" : "In-Office"}</p>
-                      <p>{job.salaryFrom + "-" + job.salaryTo + " Ft"}</p>
+                      <p>
+                        {new Intl.NumberFormat("hu-HU").format(job?.salaryFrom) +
+                          " - " +
+                          new Intl.NumberFormat("hu-HU", {
+                            style: "currency",
+                            currency: "HUF",
+                            maximumFractionDigits: 0,
+                          }).format(job?.salaryTo)}
+                      </p>
                       <p></p>
                     </div>
                   </div>

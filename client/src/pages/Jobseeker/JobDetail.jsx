@@ -30,7 +30,7 @@ const JobDetail = () => {
       <div>
         <SecondaryHeader>
           <div>
-            <div className="flex gap-8">
+            <div className="flex gap-8 ">
               <div>{job?.company}</div>
               <div className="badge badge-info text-base my-auto">
                 {job?.homeOffice ? "Home Office" : "Office"}
@@ -68,7 +68,11 @@ const JobDetail = () => {
             <div className="flex justify-between">
               <div className="flex flex-col">
                 <h1 className="font-bold">Cég részletei</h1>
-                <p>Megtetszett a lehetőség? Jelentkezz!</p>
+                {applicants !== null && !alreadyApplied ? (
+                  <p> Megtetszett a lehetőség? Jelentkezz!</p>
+                ) : (
+                  <></>
+                )}
               </div>
 
               {applicants !== null && alreadyApplied ? (
@@ -113,7 +117,20 @@ const JobDetail = () => {
                 </tr>
                 <tr>
                   <td>Foglalkoztatás típusa</td>
-                  <td className="font-semibold">{job?.type}</td>
+                  <td className="font-semibold">
+                    {(() => {
+                      switch (job?.type) {
+                        case "full-time":
+                          return "Teljes munkaidő";
+                        case "part-time":
+                          return "Részmunkaidő";
+                        case "internship":
+                          return "Gyakornoki";
+                        default:
+                          return "";
+                      }
+                    })()}
+                  </td>
                 </tr>
                 <tr>
                   <td>Település</td>

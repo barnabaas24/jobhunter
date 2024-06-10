@@ -6,7 +6,6 @@ import SecondaryHeader from "../../components/SecondaryHeader";
 const JobSeekerProfile = () => {
   const user = useSelector((state) => state.auth.user);
   const { data: experiences } = useGetExperiencesQuery();
-  const [editEnabled, setEditEnabled] = useState(false);
 
   return (
     <div>
@@ -18,9 +17,6 @@ const JobSeekerProfile = () => {
               <h1 className="font-bold">Személyes adatok</h1>
               <p>Adatait és tapasztalataid egy helyen.</p>
             </div>
-            <button onClick={() => setEditEnabled(true)} className="btn btn-sm">
-              Tapasztalatok szerkesztése
-            </button>
           </div>
 
           <table className="table">

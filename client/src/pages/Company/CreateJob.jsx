@@ -38,7 +38,7 @@ const CreateJob = () => {
     <div>
       <SecondaryHeader>Új hírdetés létrehozása</SecondaryHeader>
 
-      <div className="w-1/2 p-6 rounded-lg mx-auto mt-12 shadow-lg">
+      <div className="w-1/2 p-6 rounded-lg mx-auto mt-6 shadow-lg">
         <form onSubmit={handleFormSubmit} className=" w-1/2 mx-auto flex flex-col gap-6">
           <label className="input input-bordered flex items-center gap-2">
             Cég neve

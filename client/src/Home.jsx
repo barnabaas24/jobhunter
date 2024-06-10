@@ -11,13 +11,18 @@ const Home = () => {
   const navigate = useNavigate();
 
   function handleJobClick(jobId) {
-    navigate(`/jobs/${jobId}`);
+    if (userRole === "jobseeker") {
+      navigate(`/jobs/${jobId}`);
+      return;
+    }
+    if (userRole === "company") return;
+    navigate("/login");
   }
 
   return (
     <div>
       <SecondaryHeader>Főoldal</SecondaryHeader>
-      <div className="container mx-auto w-1/2 mt-10">
+      <div className="container mx-auto w-1/2 mt-6">
         <div className="overflow-x-auto shadow-lg rounded-lg p-6">
           <table className="table">
             <thead>
@@ -30,9 +35,9 @@ const Home = () => {
               {jobs?.map((job) => (
                 <tr
                   key={job.id}
-                  onClick={userRole === "jobseeker" ? () => handleJobClick(job.id) : null}
+                  onClick={() => handleJobClick(job.id)}
                   className={`flex justify-between ${
-                    userRole === "jobseeker" ? "cursor-pointer" : ""
+                    userRole === "jobseeker" || userRole !== "company" ? "cursor-pointer" : ""
                   } hover:bg-base-200`}
                 >
                   <td>
@@ -52,7 +57,20 @@ const Home = () => {
                             maximumFractionDigits: 0,
                           }).format(job.salaryTo)}
                       </span>
-                      <span className="text-center">{job.type}</span>
+                      <span className="text-center">
+                        {(() => {
+                          switch (job.type) {
+                            case "full-time":
+                              return "Teljes munkaidő";
+                            case "part-time":
+                              return "Részmunkaidő";
+                            case "internship":
+                              return "Gyakornoki";
+                            default:
+                              return "";
+                          }
+                        })()}
+                      </span>
                     </div>
                   </td>
                 </tr>

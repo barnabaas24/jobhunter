@@ -10,24 +10,42 @@ const Menu = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="navbar bg-primary">
-      <NavLink className="btn btn-ghost text-xl" to="/">
+    <div className="navbar bg-primary flex gap-1">
+      <NavLink
+        className={({ isActive }) => `btn btn-ghost text-xl ${isActive ? "btn-active font-bold" : ""}`}
+        to="/"
+      >
         Álláshírdetések
       </NavLink>
       {isAuthenticated ? (
         <>
           {isCompany ? (
             <>
-              <NavLink className="btn btn-ghost text-xl" to="/companyprofile">
+              <NavLink
+                className={({ isActive }) =>
+                  `btn btn-ghost text-xl ${isActive ? "btn-active font-bold" : ""}`
+                }
+                to="/companyprofile"
+              >
                 Profilom
               </NavLink>
-              <NavLink className="btn btn-ghost text-xl" to="/createjob">
+              <NavLink
+                className={({ isActive }) =>
+                  `btn btn-ghost text-xl ${isActive ? "btn-active font-bold" : ""}`
+                }
+                to="/createjob"
+              >
                 Álláshírdetés hozzáadása
               </NavLink>
             </>
           ) : (
             <>
-              <NavLink className="btn btn-ghost text-xl" to="/profile">
+              <NavLink
+                className={({ isActive }) =>
+                  `btn btn-ghost text-xl ${isActive ? "btn-active font-bold" : ""}`
+                }
+                to="/profile"
+              >
                 Profilom
               </NavLink>
             </>
@@ -38,10 +56,16 @@ const Menu = () => {
         </>
       ) : (
         <>
-          <NavLink className="btn btn-ghost text-xl" to="/login">
+          <NavLink
+            className={({ isActive }) => `btn btn-ghost text-xl ${isActive ? "btn-active font-bold" : ""}`}
+            to="/login"
+          >
             Bejelentkezés
           </NavLink>
-          <NavLink className="btn btn-ghost text-xl" to="/register">
+          <NavLink
+            className={({ isActive }) => `btn btn-ghost text-xl ${isActive ? "btn-active font-bold" : ""}`}
+            to="/register"
+          >
             Regisztráció
           </NavLink>
         </>
