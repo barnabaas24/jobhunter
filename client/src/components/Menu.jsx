@@ -15,7 +15,7 @@ const Menu = () => {
         className={({ isActive }) => `btn btn-ghost text-xl ${isActive ? "btn-active font-bold" : ""}`}
         to="/"
       >
-        Álláshírdetések
+        Jobhunter
       </NavLink>
       {isAuthenticated ? (
         <>

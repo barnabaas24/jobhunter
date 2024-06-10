@@ -19,7 +19,7 @@ const JobDetail = () => {
   async function handleJobApplication() {
     try {
       await applyForJob({ jobId: job.id });
-      toast("Sikeres jelentkezés!");
+      toast.success("Sikeres jelentkezés!");
     } catch (error) {
       console.log(error);
     }

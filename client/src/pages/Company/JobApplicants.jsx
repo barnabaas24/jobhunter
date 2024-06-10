@@ -9,7 +9,7 @@ const JobApplicants = () => {
 
   return (
     <div className="mx-auto p-6">
-      {applicants?.length === 0 ? (
+      {!!applicants && applicants.length === 0 ? (
         <h1 className="font-bold text-xl">Még nincsenek jelentkezők erre a pozícióra</h1>
       ) : (
         <div className="flex flex-col gap-6 pt-6 ">

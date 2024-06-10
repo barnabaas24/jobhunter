@@ -27,7 +27,14 @@ const Register = () => {
         const experiences = [];
         experienceData.forEach((line) => {
           const tokens = line.split(";");
-          experiences.push({ company: tokens[0], title: tokens[1], interval: tokens[2] });
+          if (tokens.length === 3) {
+            experiences.push({
+              company: tokens[0].trim(),
+              title: tokens[1].trim(),
+              interval: tokens[2].trim(),
+            });
+            console.log(tokens);
+          }
         });
         await addExperiences(experiences);
       }
