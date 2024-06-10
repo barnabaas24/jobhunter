@@ -33,7 +33,6 @@ const Register = () => {
               title: tokens[1].trim(),
               interval: tokens[2].trim(),
             });
-            console.log(tokens);
           }
         });
         await addExperiences(experiences);
